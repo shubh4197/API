@@ -31,8 +31,17 @@ public class Candidates {
 	int dxc;
 
 	int creditsEarned;
-
 	
+	String address;
+	
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	@DBRef(lazy = true)
 	@JsonIgnoreProperties({"appliedCandidates","selectedCandidates"})
 	List<Posts> selectedPosts=new ArrayList<Posts>();

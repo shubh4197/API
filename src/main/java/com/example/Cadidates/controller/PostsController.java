@@ -143,4 +143,51 @@ public class PostsController {
 		return postRepo.findAll();
 	}
 	
+	@PutMapping("/postsClose/{postid}")
+	public Posts addCredits(@PathVariable String postid ) {
+		Posts post1=postRepo.find(postid);
+		
+		for(Candidates i:post1.getSelectedCandidates())	
+		{   if(i.getDXC()==1)
+			{int c=i.getCreditsEarned();
+			 c=c+Integer.parseInt(post1.getCredits());
+			 i.setCreditsEarned(c);
+			}
+		int index=0;
+		List<Posts> lol3 =i.getSelectedPosts();
+		for(Posts j:lol3)
+		{
+			if(j==post1)
+			{
+				 index=lol3.indexOf(j);
+			}
+		}
+		lol3.remove(index);
+		i.setSelectedPosts(lol3);
+		
+		   
+		   candi.save(i);
+		}
+		
+		for(Candidates i:post1.getAppliedCandidates())	
+		{   
+		int index1=0;
+		List<Posts> lol4 =i.getAppliedPosts();
+		for(Posts j:lol4)
+		{
+			if(j==post1)
+			{
+				 index1=lol4.indexOf(j);
+			}
+		}
+		lol4.remove(index1);
+		i.setAppliedPosts(lol4);
+		   
+		   candi.save(i);
+		}
+		
+		
+	  postRepo.remove(post1);
+	  return post1;	
+	}
 }
